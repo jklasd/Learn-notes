@@ -1,4 +1,4 @@
-# rabbitMQ 治理
+# rabbitMQ 注册流程
 
 ## RabbitListenerAnnotationBeanPostProcessor#postProcessAfterInitialization
 
