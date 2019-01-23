@@ -18,7 +18,7 @@
 ### 二、特征提取 (_降维_)
 PCA、ICA、SOM、MDS、ISOMAP、LLE……
 
-**1、PCA主成分分析**
+**1、PCA主成分分析(无监督)**
 * 协方差原理
 
     样本X和样本Y的协方差(Covariance)：
@@ -58,11 +58,44 @@ PCA、ICA、SOM、MDS、ISOMAP、LLE……
     - 计算协方差矩阵![[]](https://images2017.cnblogs.com/blog/984656/201708/984656-20170830171317843-522396617.png)
     - 对协方差矩阵进行奇异值分解![[]](http://latex.codecogs.com/gif.latex?%5BU%2CS%2CV%5D%20%3D%20svd%28%5CSigma%29)
     - 选取最大的前K个特征值对应的特征向量u(1)，u(2)，u(3)，.....，u(k)
-    - 输出降维的投影特征矩阵Ureduce={u(1)，u(2)，u(3)，.....，u(k)}
-    - 输出降维后的数据集z=**Ureduce** T x
+    - 输出降维的投影特征矩阵 Ureduce={u(1)，u(2)，u(3)，.....，u(k)}
+    - 输出降维后的数据集 z=**Ureduce** T x
 
-**2、LDA线性判别分析**
+**2、LDA线性判别分析(有监督)**
 
+   - 概念
+     
+     Linear Discriminant Analysis (也有叫做Fisher Linear Discriminant)。与PCA一样，是一种线性降维算法。不同于PCA只会选择数据变化最大的方向，由于LDA是有监督的（分类标签），所以LDA会主要以类别为思考因素，使得投影后的样本尽可能可分。它通过在k维空间选择一个投影超平面，使得不同类别在该超平面上的投影之间的距离尽可能近，同时不同类别的投影之间的距离尽可能远。从而试图明确地模拟数据类之间的差异。
+    
+   - 算法
+   
+     在LDA中，我们假设每一个类别的数据服从高斯分布，且具有相同协方差矩阵Σ。 
+     为了得到最优的分类器，我们需要知道类别的后验概率P(Ck|x)。根据贝叶斯定理：\
+     ![[]](https://img-blog.csdn.net/20171213150522931) \
+     其中，πk  是类别Ck的先验概率，是已知的，那么主要就是求出类条件概率密度函数fk(x)。
+     不同的算法，对这个类条件概率密度函数的假设都不同。
+     
+   - sklearn提供的API
+     
+     sklearn的discriminant_analysis提供了LDA方法LinearDiscriminantAnalysis
+     
+         def __init__(self, solver='svd', shrinkage=None, priors=None,
+                          n_components=None, store_covariance=False, tol=1e-4):
+                 self.solver = solver
+                 self.shrinkage = shrinkage
+                 self.priors = priors
+                 self.n_components = n_components
+                 self.store_covariance = store_covariance  # used only in svd solver
+                 self.tol = tol  # used only in svd solver
+
+     solver ：即求LDA超平面特征矩阵使用的方法。可以选择的方法有奇异值分解"svd"，最小二乘"lsqr"和特征分解"eigen"。一般来说特征数非常多的时候推荐使用svd，而特征数不多的时候推荐使用eigen。主要注意的是，如果使用svd，则不能指定正则化参数shrinkage进行正则化。默认值是svd
+     
+     shrinkage ：正则化参数，可以增强LDA分类的泛化能力。如果仅仅只是为了降维，则一般可以忽略这个参数。默认是None，即不进行正则化。可以选择"auto",让算法自己决定是否正则化。当然我们也可以选择不同的[0,1]之间的值进行交叉验证调参。注意shrinkage只在solver为最小二乘"lsqr"和特征分解"eigen"时有效。
+     
+     priors  ：类别权重，可以在做分类模型时指定不同类别的权重，进而影响分类模型建立。降维时一般不需要关注这个参数。
+     
+     n_components：即我们进行LDA降维时降到的维数。在降维时需要输入这个参数。注意只能为[1,类别数-1)范围之间的整数。如果我们不是用于降维，则这个值可以用默认的None。
+     
 **3、ICA独立分析**
 
 **4、因子分析**
