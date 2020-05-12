@@ -47,3 +47,13 @@
     1、Runtime.getRuntime().availableProcessors() 返回Java虚拟机可用的处理器数。
     2、Runtime.getRuntime().maxMemory() 返回Java虚拟机将尝试使用的最大内存量。
   
+
+##二、ListenerConfig、ChannelListener、AbstractServerConnection、HttpHandler 
+
+io.undertow.Undertow.ListenerConfig
+
+org.xnio.ChannelListener
+
+io.undertow.server.AbstractServerConnection
+
+io.undertow.server.HttpHandler
