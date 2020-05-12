@@ -74,6 +74,8 @@ P7 到这里，Lucene已经实现了检索系统所需要的基本功能，那El
 
 其实我们可以这么理解，把Lucene看做js，Elasticsearch看作jquery。索引的建立，和文档的搜索这些底层功能，Lucene都实现好了。但是如何更精准，就需要好的查询算法，这里就需要整合Lucene提供的检索模型。
 
+
+
 P8 我们来看看Elasticsearch的搜索流程图。
 
 
