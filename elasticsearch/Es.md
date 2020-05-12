@@ -68,14 +68,18 @@ P6 检索模型是判断文档内容与用户查询相关性的核心技术。
 
 
 
-到这里，Lucene已经实现了检索系统所需要的基本功能，那Elasticsearch作为一个搜索引擎，做了哪些事呢？
+# 了解Elasticsearch
+
+P7 到这里，Lucene已经实现了检索系统所需要的基本功能，那Elasticsearch作为一个搜索引擎，做了哪些事呢？
 
 其实我们可以这么理解，把Lucene看做js，Elasticsearch看作jquery。索引的建立，和文档的搜索这些底层功能，Lucene都实现好了。但是如何更精准，就需要好的查询算法，这里就需要整合Lucene提供的检索模型。
 
-我们来看看Elasticsearch的搜索流程图。
+P8 我们来看看Elasticsearch的搜索流程图。
 
 
 
+P9 Elasticsearch有这些基本概念：
 
+索引、类型、文档、映射、节点、集群、分片、副本、网关
 
-# 了解Elasticsearch
+Elastisearch里的索引和Lucene的索引不同，它可能是由Lucene的一个或多个索引构成的。它就相当我们数据库的一个库，而类型就相当于数据库的表。文档就相当于一条记录，映射是表的结构，里面描述了数据的属性。
